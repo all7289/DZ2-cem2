@@ -318,7 +318,9 @@ void search_student (char *filestd, char *filebook, char *filelibrary)
                 k[j]=j;
             else k[j]=-1;
         }
-        printf("%10s%15s%10s%20s%25s%15s%10s\n","Idstd","Day","ISBN","Author","Namebook","Totalbook","Access");
+        printf("\n-----------------------------------------------------------------------------------------------------------------\n");
+        printf("|%10s|%15s|%10s|%20s|%25s|%15d|%10d|\n","Idstd","Day","ISBN","Author","Namebook","Totalbook","Access");
+        printf("|----------|---------------|----------|--------------------|-------------------------|---------------|----------|\n");
         test=-1;
         for(j=0;j<b;j++){
             y=k[j];
@@ -327,12 +329,13 @@ void search_student (char *filestd, char *filebook, char *filelibrary)
                 for(m;m<=c;m++){
                     if(strcmp(datalbr[y].ISBN,databook[m].ISBN)==0)
                        {
-                           printf("%10s%15s%10s%20s%25s%15d%10d\n",datastd[x].idstd,datalbr[y].day,databook[m].ISBN,databook[m].author,databook[m].namebook,databook[m].totalbook,databook[m].access);
+                           printf("|%10s|%15s|%10s|%20s|%25s|%15d|%10d|\n",datastd[x].idstd,datalbr[y].day,databook[m].ISBN,databook[m].author,databook[m].namebook,databook[m].totalbook,databook[m].access);
                            test=1;
                        }
                 }
             }
         }
+        printf("-----------------------------------------------------------------------------------------------------------------\n");
         if(test==-1)
                 printf("This student dont borrow book\n");
     }
@@ -429,22 +432,22 @@ void restore_file()
            fscanf(f, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]",data[i].idstd,data[i].surname,data[i].name,data[i].middlename,data[i].department,data[i].major);
            i++;
         }
+        fclose(f);
+        f1=fopen("students.csv","w");
+        rewind(f1);
+        fprintf(f1,"ID,Surname,Name,Middlename,Department,Major\n");
+        for(j=0;j<i-1 ;j++){
+        fprintf(f1,"%s",data[j].idstd);
+        fprintf(f1,",%s",data[j].surname);
+        fprintf(f1,",%s",data[j].name);
+        fprintf(f1,",%s",data[j].middlename);
+        fprintf(f1,",%s",data[j].department);
+        fprintf(f1,",%s\n",data[j].major);
+        }
+        fclose(f1);
+        printf("\nYou've successfully restore the folder!!!\n");
+        getch();
     }
-    fclose(f);
-    f1=fopen("students.csv","w");
-    rewind(f1);
-    fprintf(f1,"ID,Surname,Name,Middlename,Department,Major\n");
-    for(j=0;j<i-1 ;j++){
-    fprintf(f1,"%s",data[j].idstd);
-    fprintf(f1,",%s",data[j].surname);
-    fprintf(f1,",%s",data[j].name);
-    fprintf(f1,",%s",data[j].middlename);
-    fprintf(f1,",%s",data[j].department);
-    fprintf(f1,",%s\n",data[j].major);
-    }
-    fclose(f1);
-    printf("\nYou've successfully restore the folder!!!\n");
-    getch();
 }
 int menu()
 {
@@ -773,7 +776,9 @@ void search_book (char *filestd, char *filebook, char *filelibrary)
             else k[j]=-1;
         }
         test=-1;
-        printf("%10s%15s%10s%10s%15s%15s%10s\n","IDstd","Day","Surname","Name","Middlename","Department","Major");
+        printf("\n---------------------------------------------------------------------------------------------\n");
+        printf("|%10s|%15s|%10s|%10s|%15s|%15s|%10s|\n","IDstd","Day","Surname","Name","Middlename","Department","Major");
+        printf("|----------|---------------|----------|----------|---------------|---------------|----------|\n");
         for(j=0;j<b;j++){
             y=k[j];
             if(y!=-1){
@@ -781,12 +786,13 @@ void search_book (char *filestd, char *filebook, char *filelibrary)
                 for(m;m<c;m++){
                     if(strcmp(datalbr[y].idstd,datastd[m].idstd)==0)
                        {
-                           printf("%10s%15s%10s%10s%15s%15s%10s\n",datastd[m].idstd,datalbr[y].day,datastd[m].surname,datastd[m].name,datastd[m].middlename,datastd[m].department,datastd[m].major);
+                           printf("|%10s|%15s|%10s|%10s|%15s|%15s|%10s|\n",datastd[m].idstd,datalbr[y].day,datastd[m].surname,datastd[m].name,datastd[m].middlename,datastd[m].department,datastd[m].major);
                            test=1;
                        }
                 }
             }
         }
+        printf("---------------------------------------------------------------------------------------------\n");
         if(test==-1)
                 printf("This book is not borrowed");
     }
@@ -829,12 +835,15 @@ void info_book(char *Namefile)
 		  }
 		}
 	}
-    printf("\n%10s%25s%25s%10s%10s\n","ISBN","author","namebook","totalbook","access");
+    printf("\n--------------------------------------------------------------------------------------\n");
+    printf("|%10s|%25s|%25s|%10s|%10s|\n","ISBN","author","namebook","totalbook","access");
+    printf("|----------|-------------------------|-------------------------|----------|----------|\n");
     for(x=0;x<i-1;x++)
     {
-        printf("%10s%25s%25s%10d%10d\n",data[x].ISBN,data[x].author,data[x].namebook,data[x].totalbook,data[x].access);
+        printf("|%10s|%25s|%25s|%10d|%10d|\n",data[x].ISBN,data[x].author,data[x].namebook,data[x].totalbook,data[x].access);
     }
-    printf("\nSuccess!!!\n");
+    printf("--------------------------------------------------------------------------------------\n");
+    printf("Success!!!\n");
     getch();
 }
 void return_book(char *filestd, char *filebook, char *filelibrary)
@@ -1068,7 +1077,6 @@ void history_book(int choice,char *login)
 }
 void main_book(char *login,char *filestd, char *filebook, char *filelibrary)
 {
-    //char Namefile[]="book.csv";
     int a;
     for(;;)
     {
