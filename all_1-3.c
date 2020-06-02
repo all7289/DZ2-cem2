@@ -1126,7 +1126,7 @@ void read_file(char *Namefile,char *filestd, char *filebook, char *filelibrary)
         rewind(f);
         while(fgets(temp,size,f))
         {
-           fscanf(f, "%[^,],%[^,],%d,%d\n",data[i].login,data[i].pass,&data[i].student,&data[i].book);
+           fscanf(f, "%[^,],%[^,],%d,%d",data[i].login,data[i].pass,&data[i].student,&data[i].book);
            i++;
         }
     }
@@ -1135,13 +1135,17 @@ void read_file(char *Namefile,char *filestd, char *filebook, char *filelibrary)
     int c;
     do{
         fflush(stdin);
-        printf("Enter login : ");gets(login);
-        printf("Enter password : ");gets(pass);
+        printf("Enter login : ");
+        gets(login);
+        fflush(stdin);
+        printf("Enter password : ");
+        gets(pass);
         int j=0;
-        for(j;j<=i;j++)
+        for(j;j<i;j++)
         {
-            if(strcmp(login,data[j].login)==0 && strcmp(pass,data[j].pass)==0)
-                k =j ;
+            if(strcmp(login,data[j].login)==0)
+                if(strcmp(pass,data[j].pass)==0)
+                    k =j ;
         }
         if(k==-1)
         {
