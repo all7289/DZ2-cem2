@@ -319,7 +319,7 @@ void search_student (char *filestd, char *filebook, char *filelibrary)
             else k[j]=-1;
         }
         printf("\n-----------------------------------------------------------------------------------------------------------------\n");
-        printf("|%10s|%15s|%10s|%20s|%25s|%15d|%10d|\n","Idstd","Day","ISBN","Author","Namebook","Totalbook","Access");
+        printf("|%10s|%15s|%10s|%20s|%25s|%15s|%10s|\n","Idstd","Day","ISBN","Author","Namebook","Totalbook","Access");
         printf("|----------|---------------|----------|--------------------|-------------------------|---------------|----------|\n");
         test=-1;
         for(j=0;j<b;j++){
